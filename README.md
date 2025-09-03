@@ -6,14 +6,15 @@ This tool allows you to expand perl statements inside of text files. It was orig
 # Examples
 
 ePerl reads a text file and expands any perl code it sees between some simple delimiters (<: and :> by default). Here is a simple example - see the docs for more information.
+      
       Here is the start of a text file
-
       <: for($i=0; $i<5; $i++) { :>//
           I can count to <:=$i:>
       <: } :>//
-
       Here is the end.
+
 The output will be:
+
       Here is the start of a text file
         I can count to 0
         I can count to 1
@@ -21,10 +22,10 @@ The output will be:
         I can count to 3
         I can count to 4
       Here is the end.
+
 Not that exciting in this simple case. Here are some important points:
 The perl blocks can be split up with text (such as the begin and end of the above example)
 The perl blocks can contain any valid perl, such as use of perl modules, reading of files, system calls, ...
-
 
 # Full and min version
 
