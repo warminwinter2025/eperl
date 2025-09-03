@@ -1,0 +1,48 @@
+ePerl Quick Reference
+ePerl allows you to embed perl inside of normal text, this perl will get expanded with the text around it into a new text file.
+Anything inside of the ePerl delimiters is evaluated as perl, anything else is printed as normal text. The default delimiters are <: and :>
+
+As an example:
+
+    Quux
+    <: for($i=0; $i<=3; $i++) { print "Val: $i\n"; } :>
+    Bar
+This gets evaluated to:
+    Quux
+    Val: 0
+    Val: 1
+    Val: 2
+    Val: 3
+
+    Bar
+Notice the extra newline. This is because the newline after the ePerl code is printed as normal text, in other words:
+    Quux
+    <: $a=1; :>
+    Bar
+Becomes:
+    Quux
+    
+    Bar
+This is because the perl code does not include the newline. You can mix plain text and ePerl text on the same line:
+    Quux <: print "HI"; :> Bar
+Evaluates to:
+    Quux HI Bar
+You can add comments after leaving an ePerl delimiter, this gets rid of the newline as well:
+    Quux
+    <: $a=1; :>// This is ignored, including the newline
+    Bar
+Becomes:
+    Quux
+    Bar
+ePerl adds final semicolons to your perl code, since it's pretty common to forget: <: $a=1 :>. If you remember the semicolon then you'll just get two, and perl doesn't care. But if you specifically don't want the semicolon, you can put a _ before the end delimiter:
+    <: if ($a<$b) { _:>
+      A is less than B
+    <: } else { _:>
+      B is less than A
+    <: } _:>
+There is also a shorthand for printing. You can put = after your delimiter:
+    <:=$a:>
+Which is the same as:
+    <: print $a; :>
+Remember, if you need to include the end delimiter in your actual perl code, then you need to quote it so ePerl doesn't see it, such as ":\>"
+For more documentation, see the pod or man page
